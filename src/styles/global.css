@@ -33,15 +33,17 @@
 :root {
   /* Colour ------------------------------------------------------------- */
   --c-ink: #111111; /* body text */
-  --c-gold: #866936; /* accent: eyebrow, dates, numbers */
-  --c-gold-10: rgba(134, 105, 54, 0.1); /* button borders, hairlines */
+  --c-gold: #725625; /* accent: dates, countdown numbers */
+  --c-gold-10: rgba(114, 86, 37, 0.1); /* button borders, hairlines */
   --c-white: #ffffff;
   --c-rule: #dcdcdc; /* dividers */
   --c-cream: #f4f1ec; /* countdown band, button fill */
+  --c-cream-dark: #dbd2c3; /* "Book your stay" hover */
   --c-blue: #64769c; /* Celebrations heading */
   --c-blue-light: #798cb2; /* card dates */
   --c-blue-band: #edf3ff; /* Celebrations background */
   --c-green-band: #f1f5e0; /* footer background */
+  --c-green-hover: #d6dfb6; /* Email / WhatsApp hover */
 
   /* Type --------------------------------------------------------------- */
   /* ONE variable controls every heading, so the display face can be
@@ -60,7 +62,10 @@
   --fs-date: clamp(1.125rem, 1.71vw, 1.875rem); /* 17.04.2028 */
   --fs-count: clamp(1.5rem, 2.18vw, 2.5rem); /* countdown numbers */
   --fs-body: clamp(1rem, 1.05vw, 1.125rem);
-  --fs-small: clamp(0.75rem, 0.9vw, 0.875rem); /* eyebrow, labels */
+  --fs-small: clamp(0.75rem, 0.9vw, 0.875rem); /* card dates, buttons */
+  /* The eyebrow and countdown labels are set in Aboreto, which runs wider
+     than the body face, so they get their own size rather than --fs-small. */
+  --fs-eyebrow: clamp(0.625rem, 0.85vw, 0.875rem);
 
   /* Tracking is per heading level in the design, not one global value.
      These were solved from the Figma export: for each group of headings
@@ -160,22 +165,38 @@ img {
 }
 
 .eyebrow {
-  font-family: var(--font-body);
-  font-size: var(--fs-small);
-  font-weight: 500;
+  font-family: var(--font-heading);
+  font-size: var(--fs-eyebrow);
+  font-weight: 400;
   letter-spacing: var(--ls-eyebrow);
   text-indent: var(--ls-eyebrow);
   text-transform: uppercase;
-  color: var(--c-gold);
+  color: var(--c-ink);
 }
 
-/* Short hairline divider used under most headings. */
+/* Short divider used under most headings. It fades in at both ends rather
+   than stopping abruptly. The middle stops are set well inside the ends so
+   there is a genuinely solid run in the centre — a plain three-stop
+   gradient only reaches full colour at the exact midpoint, which reads as
+   a faint smudge at these widths. */
 .rule {
   width: 64px;
   height: 1px;
   border: 0;
   margin: var(--s-3) auto;
-  background: var(--c-rule);
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    var(--c-rule) 28%,
+    var(--c-rule) 72%,
+    transparent 100%
+  );
+}
+
+/* A shorter one, used between a card title and its date. */
+.rule--short {
+  width: 48px;
+  margin-block: var(--s-1);
 }
 
 .prose p + p {
@@ -190,8 +211,9 @@ img {
 
 .btn {
   display: inline-block;
-  font-family: var(--font-body);
-  font-size: var(--fs-small);
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: var(--fs-eyebrow);
   letter-spacing: var(--ls-eyebrow);
   text-indent: var(--ls-eyebrow);
   text-transform: uppercase;
@@ -212,20 +234,20 @@ img {
 
 .btn--solid:hover,
 .btn--solid:focus-visible {
-  background: var(--c-gold);
-  color: var(--c-white);
+  background: var(--c-cream-dark);
 }
 
 /* Outlined, used for the footer contact buttons. */
 .btn--outline {
-  background: transparent;
+  background: var(--c-white);
+  color: var(--c-ink);
   border: 1px solid var(--c-gold-10);
 }
 
 .btn--outline:hover,
 .btn--outline:focus-visible {
-  background: var(--c-white);
-  border-color: var(--c-gold);
+  background: var(--c-green-hover);
+  border-color: transparent;
 }
 
 .btn:focus-visible {

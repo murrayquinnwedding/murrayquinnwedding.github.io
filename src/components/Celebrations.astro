@@ -50,6 +50,7 @@ const cards = [
           loading="lazy"
         />
         <h3 class="heading card__title">{cards[0].title}</h3>
+        <hr class="rule rule--short" />
         <p class="card__date">{cards[0].date}</p>
         <div class="prose card__body">
           <p>
@@ -70,6 +71,7 @@ const cards = [
           loading="lazy"
         />
         <h3 class="heading card__title">{cards[1].title}</h3>
+        <hr class="rule rule--short" />
         <p class="card__date">{cards[1].date}</p>
         <div class="prose card__body">
           <p>
@@ -117,9 +119,14 @@ const cards = [
     align-items: center;
   }
 
+  /* The church and the storefront have different proportions, so they are
+     sized by HEIGHT rather than width. That keeps both illustrations the
+     same height and the two cards' titles, dates and text on the same
+     lines as each other. */
   .card__art {
-    width: clamp(6rem, 9.5vw, 9rem);
-    height: auto;
+    height: clamp(5rem, 9.5vw, 8.5rem);
+    width: auto;
+    max-width: 100%;
     margin-bottom: var(--s-3);
   }
 
@@ -130,7 +137,7 @@ const cards = [
   }
 
   .card__date {
-    margin-top: var(--s-2);
+    margin-top: 0;
     font-size: var(--fs-small);
     letter-spacing: var(--ls-eyebrow);
     text-indent: var(--ls-eyebrow);

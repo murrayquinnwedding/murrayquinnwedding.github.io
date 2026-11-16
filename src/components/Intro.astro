@@ -140,25 +140,28 @@
       margin-bottom: var(--s-6);
     }
 
+    /* Both photos are given the same width so they read as a matched pair,
+       and they are pulled towards each other so they overlap, as in the
+       mobile design. */
     .intro__photo--left,
     .intro__photo--right {
       grid-row: 2;
       max-width: none;
       transform: none;
+      width: min(100%, 12rem);
     }
 
     .intro__photo--left {
       grid-column: 1;
       justify-self: end;
-      width: min(100%, 11rem);
-      margin-right: -1.5rem;
+      margin-right: -2.75rem;
       transform: translateY(0.75rem);
     }
 
     .intro__photo--right {
       grid-column: 2;
       justify-self: start;
-      width: min(100%, 10.5rem);
+      margin-left: -2.75rem;
       position: relative;
       z-index: 1; /* Mark's photo sits over Aoife's, as in the design */
     }
