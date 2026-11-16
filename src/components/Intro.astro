@@ -2,18 +2,31 @@
 // The polaroid frame, rotation, washi tape and drop shadow are all baked
 // into these PNGs from the Figma file, so they need no CSS treatment —
 // they just get placed.
+
+// A 1x1 transparent GIF. On phones this stands in for Mark's photo, whose
+// figure is hidden there because the combined image already shows him.
+// It is inline, so it costs no request. A hidden <img> would still be
+// downloaded — `display: none` and `loading="lazy"` do NOT prevent that,
+// which is why the swap is done with <picture> and `media` instead.
+const BLANK =
+  'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 ---
 
 <section class="intro">
   <div class="container intro__grid">
     <figure class="intro__photo intro__photo--left">
-      <img
-        src="/images/aoife.webp"
-        alt="Aoife as a young girl, smiling"
-        width="900"
-        height="953"
-        loading="lazy"
-      />
+      <picture>
+        <!-- On a phone this slot carries the pair of photos as one image,
+             laid out and overlapped in the Figma file. -->
+        <source media="(max-width: 860px)" srcset="/images/intro-pair.webp" />
+        <img
+          src="/images/aoife.webp"
+          alt="Aoife and Mark as children, both smiling"
+          width="900"
+          height="953"
+          loading="lazy"
+        />
+      </picture>
     </figure>
 
     <div class="intro__text">
@@ -43,13 +56,18 @@
     </div>
 
     <figure class="intro__photo intro__photo--right">
-      <img
-        src="/images/mark.webp"
-        alt="Mark as a young boy, smiling"
-        width="900"
-        height="1059"
-        loading="lazy"
-      />
+      <picture>
+        <!-- Hidden on phones, where the combined image already shows Mark,
+             so the real photo is not downloaded there. -->
+        <source media="(max-width: 860px)" srcset={BLANK} />
+        <img
+          src="/images/mark.webp"
+          alt="Mark as a young boy, smiling"
+          width="900"
+          height="1059"
+          loading="lazy"
+        />
+      </picture>
     </figure>
   </div>
 </section>
@@ -120,63 +138,35 @@
     transform: translateY(1.5rem);
   }
 
+
   /* --- Mobile -----------------------------------------------------------
-     Text first, then the two photos side by side beneath it. The small
-     negative margin lets them overlap slightly, as they do in the design.
+     Text first, then the pair of photos beneath it as a single image.
      --------------------------------------------------------------------- */
   @media (max-width: 860px) {
     .intro__grid {
-      /* The photo columns size to their content rather than splitting the
-         row evenly, so each photo can take the width its own proportions
-         ask for. */
-      grid-template-columns: auto auto;
-      justify-content: center;
+      grid-template-columns: 1fr;
       gap: 0;
     }
 
-    /* The photos come before and after the text in the markup (so the
-       desktop layout reads left-to-right), so the rows have to be set
-       explicitly here — otherwise auto-placement strands one photo above
-       the text and the other below it. */
+    /* The photos sit either side of the text in the markup, so the rows
+       have to be set explicitly — otherwise auto-placement strands the
+       photo above the text. */
     .intro__text {
       grid-row: 1;
-      grid-column: 1 / -1;
       margin-bottom: var(--s-6);
     }
 
-    /* The two photos are matched on HEIGHT, not width. Aoife's picture is
-       the squarer of the two, so at equal widths her polaroid reads as the
-       smaller card; sizing by height makes her slightly wider and the pair
-       look like a matched set. */
-    .intro__photo--left,
-    .intro__photo--right {
+    /* This slot now holds the combined image (see the <picture> above). */
+    .intro__photo--left {
       grid-row: 2;
-      width: auto;
+      justify-self: center;
       max-width: none;
       transform: none;
-    }
-
-    .intro__photo--left img,
-    .intro__photo--right img {
-      height: clamp(8rem, 45vw, 11.5rem);
-      width: auto;
-      max-width: none;
-    }
-
-    /* A gentle tuck, so they sit as a pair without crowding each other. */
-    .intro__photo--left {
-      grid-column: 1;
-      justify-self: end;
-      margin-right: -0.75rem;
-      transform: translateY(0.75rem);
+      width: min(100%, 24rem);
     }
 
     .intro__photo--right {
-      grid-column: 2;
-      justify-self: start;
-      margin-left: -0.75rem;
-      position: relative;
-      z-index: 1; /* Mark's photo sits over Aoife's, as in the design */
+      display: none;
     }
   }
 </style>
