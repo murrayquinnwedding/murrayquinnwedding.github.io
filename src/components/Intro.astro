@@ -126,8 +126,12 @@
      --------------------------------------------------------------------- */
   @media (max-width: 860px) {
     .intro__grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0 var(--s-2);
+      /* The photo columns size to their content rather than splitting the
+         row evenly, so each photo can take the width its own proportions
+         ask for. */
+      grid-template-columns: auto auto;
+      justify-content: center;
+      gap: 0;
     }
 
     /* The photos come before and after the text in the markup (so the
@@ -140,28 +144,37 @@
       margin-bottom: var(--s-6);
     }
 
-    /* Both photos are given the same width so they read as a matched pair,
-       and they are pulled towards each other so they overlap, as in the
-       mobile design. */
+    /* The two photos are matched on HEIGHT, not width. Aoife's picture is
+       the squarer of the two, so at equal widths her polaroid reads as the
+       smaller card; sizing by height makes her slightly wider and the pair
+       look like a matched set. */
     .intro__photo--left,
     .intro__photo--right {
       grid-row: 2;
+      width: auto;
       max-width: none;
       transform: none;
-      width: min(100%, 12rem);
     }
 
+    .intro__photo--left img,
+    .intro__photo--right img {
+      height: clamp(8rem, 45vw, 11.5rem);
+      width: auto;
+      max-width: none;
+    }
+
+    /* A gentle tuck, so they sit as a pair without crowding each other. */
     .intro__photo--left {
       grid-column: 1;
       justify-self: end;
-      margin-right: -2.75rem;
+      margin-right: -0.75rem;
       transform: translateY(0.75rem);
     }
 
     .intro__photo--right {
       grid-column: 2;
       justify-self: start;
-      margin-left: -2.75rem;
+      margin-left: -0.75rem;
       position: relative;
       z-index: 1; /* Mark's photo sits over Aoife's, as in the design */
     }
