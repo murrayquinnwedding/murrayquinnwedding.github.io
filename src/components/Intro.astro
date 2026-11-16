@@ -1,0 +1,166 @@
+---
+// The polaroid frame, rotation, washi tape and drop shadow are all baked
+// into these PNGs from the Figma file, so they need no CSS treatment —
+// they just get placed.
+---
+
+<section class="intro">
+  <div class="container intro__grid">
+    <figure class="intro__photo intro__photo--left">
+      <img
+        src="/images/aoife.webp"
+        alt="Aoife as a young girl, smiling"
+        width="900"
+        height="953"
+        loading="lazy"
+      />
+    </figure>
+
+    <div class="intro__text">
+      <h2 class="heading intro__heading">
+        We are so excited to celebrate our wedding with our favourite people!
+      </h2>
+
+      <hr class="rule" />
+
+      <div class="prose">
+        <p>
+          With our wedding falling on Easter Monday, we'd love for you to join us in making a little
+          celebration of the long weekend.
+        </p>
+        <p>
+          We've created this website to share all the details you'll need as we count down to the
+          big day. We'll be adding more information as plans come together, so do check back for
+          updates.
+        </p>
+        <p>We can't wait to celebrate with you!</p>
+      </div>
+
+      <p class="intro__signoff">
+        Le Grá,<br />
+        <strong>Aoife &amp; Mark</strong>
+      </p>
+    </div>
+
+    <figure class="intro__photo intro__photo--right">
+      <img
+        src="/images/mark.webp"
+        alt="Mark as a young boy, smiling"
+        width="900"
+        height="1059"
+        loading="lazy"
+      />
+    </figure>
+  </div>
+</section>
+
+<style>
+  .intro {
+    background: var(--c-white);
+    padding-block: var(--section-y);
+  }
+
+  /* Desktop: photo | text | photo.
+     The text column is capped so the paragraphs stay a comfortable
+     reading width however wide the screen gets. */
+  .intro__grid {
+    display: grid;
+    grid-template-columns: 1fr minmax(0, 32rem) 1fr;
+    align-items: center;
+    gap: clamp(1rem, 3vw, 3rem);
+  }
+
+  .intro__text {
+    text-align: center;
+  }
+
+  .intro__heading {
+    font-size: var(--fs-intro);
+    letter-spacing: 0.08em;
+    text-indent: 0.08em;
+    line-height: 1.35;
+    /* Narrower than the paragraphs beneath it, which is what gives the
+       heading its three-line shape in the design. */
+    max-width: 28rem;
+    margin-inline: auto;
+  }
+
+  /* The paragraphs sit on a slightly narrower measure than the column. */
+  .intro__text .prose,
+  .intro__signoff {
+    max-width: 29rem;
+    margin-inline: auto;
+  }
+
+  .intro__signoff {
+    margin-top: var(--s-3);
+    line-height: 1.6;
+  }
+
+  .intro__photo {
+    margin: 0;
+  }
+
+  .intro__photo img {
+    width: 100%;
+    height: auto;
+  }
+
+  /* Nudge the two photos vertically so they sit slightly offset from one
+     another, as in the design, rather than in a dead-straight row. */
+  .intro__photo--left {
+    justify-self: start;
+    max-width: 19rem;
+    transform: translateY(-0.5rem);
+  }
+
+  .intro__photo--right {
+    justify-self: end;
+    max-width: 18rem;
+    transform: translateY(1.5rem);
+  }
+
+  /* --- Mobile -----------------------------------------------------------
+     Text first, then the two photos side by side beneath it. The small
+     negative margin lets them overlap slightly, as they do in the design.
+     --------------------------------------------------------------------- */
+  @media (max-width: 860px) {
+    .intro__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0 var(--s-2);
+    }
+
+    /* The photos come before and after the text in the markup (so the
+       desktop layout reads left-to-right), so the rows have to be set
+       explicitly here — otherwise auto-placement strands one photo above
+       the text and the other below it. */
+    .intro__text {
+      grid-row: 1;
+      grid-column: 1 / -1;
+      margin-bottom: var(--s-6);
+    }
+
+    .intro__photo--left,
+    .intro__photo--right {
+      grid-row: 2;
+      max-width: none;
+      transform: none;
+    }
+
+    .intro__photo--left {
+      grid-column: 1;
+      justify-self: end;
+      width: min(100%, 11rem);
+      margin-right: -1.5rem;
+      transform: translateY(0.75rem);
+    }
+
+    .intro__photo--right {
+      grid-column: 2;
+      justify-self: start;
+      width: min(100%, 10.5rem);
+      position: relative;
+      z-index: 1; /* Mark's photo sits over Aoife's, as in the design */
+    }
+  }
+</style>

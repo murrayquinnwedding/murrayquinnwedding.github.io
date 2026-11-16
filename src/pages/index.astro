@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Countdown from '../components/Countdown.astro';
+import Intro from '../components/Intro.astro';
+import Celebrations from '../components/Celebrations.astro';
+import WhereToStay from '../components/WhereToStay.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Base
+  title="Aoife & Mark — 17th April 2028"
+  description="You're invited to the wedding of Aoife & Mark on Easter Monday, 17th April 2028 at St. Patrick's Aghagallon, with the reception at Dunadry Hotel and Gardens."
+>
+  <Hero />
+  <Countdown />
+  <main>
+    <Intro />
+    <Celebrations />
+    <WhereToStay />
+  </main>
+  <Footer />
+</Base>

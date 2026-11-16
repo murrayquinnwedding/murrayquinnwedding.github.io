@@ -1,0 +1,51 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+
+// Astro.site comes from `site` in astro.config.mjs. Building the canonical
+// URL from it keeps the tags correct wherever the site is deployed.
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Social sharing (WhatsApp, iMessage, Facebook) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!--
+      Preload the body font. It is used immediately in the hero, so fetching
+      it early avoids a flash of fallback text. crossorigin is required on
+      font preloads even for same-origin files.
+    -->
+    <link
+      rel="preload"
+      href="/fonts/cormorant-garamond-var.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="preload" href="/fonts/italiana-400.woff2" as="font" type="font/woff2" crossorigin />
+
+    <meta name="theme-color" content="#f4f1ec" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

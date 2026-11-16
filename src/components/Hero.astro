@@ -1,0 +1,104 @@
+---
+import { WEDDING_DATE_ISO } from '../config';
+---
+
+<header class="hero">
+  <!-- Watercolour borders bleed off both edges, heaviest at the bottom. -->
+  <img class="flower flower--left" src="/images/hero-flowers-left.webp" alt="" aria-hidden="true" />
+  <img
+    class="flower flower--right"
+    src="/images/hero-flowers-right.webp"
+    alt=""
+    aria-hidden="true"
+  />
+
+  <div class="container layer-up">
+    <p class="eyebrow">You're invited to the wedding of</p>
+
+    <h1 class="heading hero__names">Aoife &amp; Mark</h1>
+
+    <img
+      class="hero__church"
+      src="/images/church.webp"
+      alt="Line drawing of St. Patrick's Church, Aghagallon"
+      width="700"
+      height="706"
+      fetchpriority="high"
+    />
+
+    <p class="hero__date">
+      <time datetime={WEDDING_DATE_ISO}>17.04.2028</time>
+    </p>
+  </div>
+</header>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background: var(--c-white);
+    padding-block: clamp(3rem, 6.5vw, 6rem) clamp(3.5rem, 7.5vw, 7rem);
+    text-align: center;
+  }
+
+  .hero__names {
+    font-size: var(--fs-display);
+    letter-spacing: var(--ls-display);
+    text-indent: var(--ls-display);
+    margin-top: var(--s-2);
+    color: var(--c-ink);
+  }
+
+  .hero__church {
+    width: clamp(10rem, 19vw, 17rem);
+    height: auto;
+    margin: clamp(1.5rem, 3vw, 2.5rem) auto 0;
+  }
+
+  .hero__date {
+    margin-top: clamp(1.5rem, 3vw, 2.5rem);
+    font-size: var(--fs-date);
+    letter-spacing: 0.1em;
+    text-indent: 0.1em;
+    color: var(--c-gold);
+  }
+
+  /* --- Flower borders ---------------------------------------------------
+     These are tall, narrow strips: a few sprigs at the top building to a
+     dense cluster at the base. Sizing them by HEIGHT (rather than width)
+     makes the whole strip fit the hero, so the top sprigs are not cropped
+     off — the width then follows from the artwork's own proportions.
+     --------------------------------------------------------------------- */
+  .flower--left,
+  .flower--right {
+    bottom: 0;
+    height: 100%;
+    width: auto;
+  }
+
+  .flower--left {
+    left: 0;
+  }
+
+  .flower--right {
+    right: 0;
+  }
+
+  /* On narrow screens the hero is proportionally taller, so sizing by
+     height would make the strips far too wide. Cap the width instead and
+     let the top of the artwork run past the top of the hero. */
+  @media (max-width: 860px) {
+    .flower--left,
+    .flower--right {
+      height: auto;
+      width: 34vw;
+      max-height: 100%;
+    }
+    .flower--left {
+      left: -6vw;
+    }
+    .flower--right {
+      right: -6vw;
+    }
+  }
+</style>

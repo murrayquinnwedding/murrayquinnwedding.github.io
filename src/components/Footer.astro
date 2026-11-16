@@ -1,0 +1,106 @@
+---
+import { CONTACT } from '../config';
+
+// NOTE: both of these are placeholders until Aoife & Mark confirm the real
+// address and number — see src/config.ts.
+const mailto = `mailto:${CONTACT.email}`;
+const whatsapp = `https://wa.me/${CONTACT.whatsapp}`;
+---
+
+<footer class="band footer">
+  <!-- Wildflower clusters in the two bottom corners, leaving the middle of
+       the band clear for the text. -->
+  <img
+    class="flower footer__flowers footer__flowers--left"
+    src="/images/accent-meadow-2.webp"
+    alt=""
+    aria-hidden="true"
+  />
+  <img
+    class="flower footer__flowers footer__flowers--right"
+    src="/images/accent-meadow-1.webp"
+    alt=""
+    aria-hidden="true"
+  />
+
+  <div class="container layer-up footer__inner">
+    <h2 class="heading footer__heading">We hope you can join us!</h2>
+
+    <hr class="rule" />
+
+    <div class="prose footer__text">
+      <p>
+        We'll be sharing all the details on how to RSVP a little closer to the time. For now, please
+        save the date – we can't wait to celebrate with you!
+      </p>
+      <p>If you have any questions in the meantime, please don't hesitate to get in touch.</p>
+    </div>
+
+    <p class="footer__actions">
+      <a class="btn btn--outline" href={mailto}>Email</a>
+      <a class="btn btn--outline" href={whatsapp} target="_blank" rel="noopener noreferrer">
+        WhatsApp
+      </a>
+    </p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--c-green-band);
+    /* The extra bottom padding is what gives the corner flowers room to
+       sit below the buttons rather than behind them. */
+    padding-block: var(--section-y) clamp(4.5rem, 7.5vw, 7rem);
+    text-align: center;
+  }
+
+  .footer__inner {
+    /* This element is also the .container, so it carries the gutter padding.
+       The gutter has to be added on top of the text width, otherwise the
+       padding eats into it and the paragraphs wrap early. */
+    max-width: calc(29rem + var(--gutter) * 2);
+  }
+
+  .footer__heading {
+    font-size: var(--fs-section);
+  }
+
+  .footer__text {
+    margin-inline: auto;
+  }
+
+  .footer__actions {
+    margin-top: var(--s-4);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--s-2);
+  }
+
+  /* Corner clusters, anchored to the bottom edge they grow from. */
+  .footer__flowers {
+    bottom: 0;
+    width: clamp(7rem, 17vw, 15rem);
+    height: auto;
+  }
+
+  .footer__flowers--left {
+    left: 0;
+  }
+
+  .footer__flowers--right {
+    right: 0;
+  }
+
+  /* On a phone the two clusters nearly meet in the middle, so the buttons
+     need enough space beneath them to clear the artwork entirely. */
+  @media (max-width: 640px) {
+    .footer {
+      padding-bottom: 11rem;
+    }
+
+    .footer__flowers {
+      width: 32vw;
+    }
+  }
+</style>

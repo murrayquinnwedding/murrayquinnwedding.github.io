@@ -1,0 +1,279 @@
+/* ==========================================================================
+   Aoife & Mark — 17 April 2028
+   Design tokens and global styles.
+   ========================================================================== */
+
+/* --- Fonts ---------------------------------------------------------------
+   Self-hosted so the site does not depend on Google's servers at runtime.
+   Cormorant Garamond is a VARIABLE font: one file covers weights 300–700,
+   which is why there is a single file rather than one per weight.
+   ------------------------------------------------------------------------ */
+
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 300 700; /* variable weight range */
+  font-display: swap;
+  src: url('/fonts/cormorant-garamond-var.woff2') format('woff2');
+}
+
+/* Heading candidates. Aborteo (the font in the Figma file) is a commercial
+   licence we do not have for web use, so these are the stand-ins.
+   Switch between them with --font-heading below. */
+
+@font-face {
+  font-family: 'Italiana';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/italiana-400.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Marcellus';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/marcellus-400.woff2') format('woff2');
+}
+
+/* --- Tokens -------------------------------------------------------------- */
+
+:root {
+  /* Colour ------------------------------------------------------------- */
+  --c-ink: #111111; /* body text */
+  --c-gold: #866936; /* accent: eyebrow, dates, numbers */
+  --c-gold-10: rgba(134, 105, 54, 0.1); /* button borders, hairlines */
+  --c-white: #ffffff;
+  --c-rule: #dcdcdc; /* dividers */
+  --c-cream: #f4f1ec; /* countdown band, button fill */
+  --c-blue: #64769c; /* Celebrations heading */
+  --c-blue-light: #798cb2; /* card dates */
+  --c-blue-band: #edf3ff; /* Celebrations background */
+  --c-green-band: #f1f5e0; /* footer background */
+
+  /* Type --------------------------------------------------------------- */
+  /* ONE variable controls every heading — swapping in Aborteo later
+     (or picking a different stand-in) is a one-line change here. */
+  --font-heading: 'Italiana', 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+
+  /* Fluid sizes: clamp(min, preferred, max) lets type scale with the
+     viewport between a mobile floor and a desktop ceiling.
+     The vw values are derived from measuring the Figma export: each one
+     reproduces the design's text width at a 1440px viewport. */
+  --fs-display: clamp(2.25rem, 3.67vw, 4.5rem); /* AOIFE & MARK */
+  --fs-band: clamp(1.5rem, 3.24vw, 4rem); /* THE CELEBRATIONS */
+  --fs-section: clamp(1.25rem, 1.65vw, 2rem); /* WHERE TO STAY, footer */
+  --fs-intro: clamp(1.25rem, 1.84vw, 2.125rem); /* intro heading */
+  --fs-date: clamp(1.125rem, 1.5vw, 1.5rem); /* 17.04.2028 */
+  --fs-count: clamp(1.5rem, 2.18vw, 2.5rem); /* countdown numbers */
+  --fs-body: clamp(1rem, 1.05vw, 1.125rem);
+  --fs-small: clamp(0.75rem, 0.9vw, 0.875rem); /* eyebrow, labels */
+
+  --ls-display: 0.1em;
+  --ls-section: 0.16em;
+  --ls-eyebrow: 0.22em;
+
+  /* Spacing: everything is a multiple of 8px ---------------------------- */
+  --s-1: 0.5rem; /* 8 */
+  --s-2: 1rem; /* 16 */
+  --s-3: 1.5rem; /* 24 */
+  --s-4: 2rem; /* 32 */
+  --s-6: 3rem; /* 48 */
+  --s-8: 4rem; /* 64 */
+  --s-10: 5rem; /* 80 */
+  --s-12: 6rem; /* 96 */
+  --s-16: 8rem; /* 128 */
+
+  /* Layout -------------------------------------------------------------- */
+  /* The Figma frame is 1920 wide, but that is a canvas, not a fixed width.
+     The design's 128px margins are 6.7% of 1920, so the gutter is expressed
+     as 6.7vw to hold the same proportion at any size, capped at 128px.
+     Content is capped overall so it still reads well on a 1440 laptop. */
+  --content-max: 1600px;
+  --gutter: clamp(2rem, 6.7vw, 8rem); /* 32px mobile → 128px desktop */
+  --section-y: clamp(3.5rem, 6vw, 6rem); /* vertical section rhythm */
+}
+
+/* --- Reset --------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+p,
+figure {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--c-white);
+  color: var(--c-ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  /* Cormorant's default figures are old-style; lining figures read better
+     for dates and countdown numbers. */
+  font-variant-numeric: lining-nums;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden; /* flower borders bleed past the edges on purpose */
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* --- Shared pieces ------------------------------------------------------- */
+
+.container {
+  width: 100%;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* A section that sits on a full-bleed coloured band. */
+.band {
+  position: relative;
+  overflow: hidden; /* clip the floral accents to the band */
+}
+
+.heading {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: var(--ls-section);
+  text-transform: uppercase;
+  /* Letterspacing adds a trailing gap on the last letter; this pulls the
+     optical centre back so centred headings really look centred. */
+  text-indent: var(--ls-section);
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: var(--ls-eyebrow);
+  text-indent: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--c-gold);
+}
+
+/* Short hairline divider used under most headings. */
+.rule {
+  width: 64px;
+  height: 1px;
+  border: 0;
+  margin: var(--s-3) auto;
+  background: var(--c-rule);
+}
+
+.prose p + p {
+  margin-top: var(--s-2);
+}
+
+.prose strong {
+  font-weight: 700;
+}
+
+/* Buttons ---------------------------------------------------------------- */
+
+.btn {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  letter-spacing: var(--ls-eyebrow);
+  text-indent: var(--ls-eyebrow);
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--c-gold);
+  padding: var(--s-2) var(--s-4);
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+/* Filled, used for "Book your stay". */
+.btn--solid {
+  background: var(--c-cream);
+  border: 1px solid transparent;
+}
+
+.btn--solid:hover,
+.btn--solid:focus-visible {
+  background: var(--c-gold);
+  color: var(--c-white);
+}
+
+/* Outlined, used for the footer contact buttons. */
+.btn--outline {
+  background: transparent;
+  border: 1px solid var(--c-gold-10);
+}
+
+.btn--outline:hover,
+.btn--outline:focus-visible {
+  background: var(--c-white);
+  border-color: var(--c-gold);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--c-gold);
+  outline-offset: 3px;
+}
+
+/* --- Decorative flowers --------------------------------------------------
+   All floral art is decorative only: it carries no meaning, so it is marked
+   aria-hidden and given an empty alt so screen readers skip it.
+   ------------------------------------------------------------------------ */
+
+.flower {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+/* Keep real content above the flowers. */
+.layer-up {
+  position: relative;
+  z-index: 1;
+}
+
+/* Respect people who ask for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Visually hidden but available to screen readers. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}

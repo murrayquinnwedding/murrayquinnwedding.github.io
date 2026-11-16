@@ -1,0 +1,96 @@
+---
+import { HOTEL_BOOKING_URL } from '../config';
+---
+
+<section class="stay">
+  <div class="container stay__grid">
+    <figure class="stay__photo">
+      <img
+        src="/images/dunadry.webp"
+        alt="The entrance to Dunadry Hotel and Gardens"
+        width="1200"
+        height="933"
+        loading="lazy"
+      />
+    </figure>
+
+    <div class="stay__text">
+      <h2 class="heading stay__heading">Where to Stay</h2>
+
+      <hr class="rule" />
+
+      <div class="prose">
+        <p>
+          We'd love for everyone to stay together and make a proper occasion of the celebrations!
+          We've arranged a <strong>special wedding rate at Dunadry Hotel and Gardens</strong>, where
+          we'd be delighted for you to join us.
+        </p>
+        <p>
+          We'd love as many of you as possible to stay with us and make a proper occasion of the
+          celebrations, so we'd recommend booking your room early.
+        </p>
+      </div>
+
+      <p class="stay__cta">
+        <a class="btn btn--solid" href={HOTEL_BOOKING_URL} target="_blank" rel="noopener noreferrer">
+          Book your stay
+        </a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .stay {
+    background: var(--c-white);
+    padding-block: calc(var(--section-y) + 0.75rem);
+  }
+
+  .stay__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: clamp(2rem, 5vw, 5rem);
+  }
+
+  .stay__photo {
+    margin: 0;
+    justify-self: center;
+  }
+
+  .stay__photo img {
+    width: 100%;
+    max-width: 26rem;
+    height: auto;
+  }
+
+  .stay__text {
+    text-align: center;
+    max-width: 30rem;
+    justify-self: center;
+  }
+
+  .stay__heading {
+    font-size: var(--fs-section);
+  }
+
+  .stay__cta {
+    margin-top: var(--s-4);
+  }
+
+  /* Mobile: text and button first, photo below. */
+  @media (max-width: 860px) {
+    .stay__grid {
+      grid-template-columns: 1fr;
+      gap: var(--s-6);
+    }
+
+    .stay__text {
+      order: 1;
+    }
+
+    .stay__photo {
+      order: 2;
+    }
+  }
+</style>

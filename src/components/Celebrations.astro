@@ -1,0 +1,172 @@
+---
+const cards = [
+  {
+    image: '/images/church.webp',
+    width: 700,
+    height: 706,
+    alt: "Line drawing of St. Patrick's Church, Aghagallon",
+    title: 'The Wedding Day',
+    date: 'Monday 17th April 2028',
+  },
+  {
+    image: '/images/bishops.webp',
+    width: 700,
+    height: 526,
+    alt: 'Line drawing of the Bishops storefront in The Moy',
+    title: 'The Following Day',
+    date: 'Tuesday 18th April 2028',
+  },
+];
+---
+
+<section class="band celebrations">
+  <!-- Floral sprigs accenting the edges of the band: a cornflower trailing
+       down from the top right, and a yellow cosmos growing up from the
+       bottom left. -->
+  <img
+    class="flower flower--top-right"
+    src="/images/accent-sprig-2.webp"
+    alt=""
+    aria-hidden="true"
+  />
+  <img
+    class="flower flower--bottom-left"
+    src="/images/accent-sprig-1.webp"
+    alt=""
+    aria-hidden="true"
+  />
+
+  <div class="container layer-up">
+    <h2 class="heading celebrations__heading">The Celebrations</h2>
+
+    <div class="celebrations__grid">
+      <article class="card">
+        <img
+          class="card__art"
+          src={cards[0].image}
+          alt={cards[0].alt}
+          width={cards[0].width}
+          height={cards[0].height}
+          loading="lazy"
+        />
+        <h3 class="heading card__title">{cards[0].title}</h3>
+        <p class="card__date">{cards[0].date}</p>
+        <div class="prose card__body">
+          <p>
+            The celebrations will begin with Mass at <strong>St. Patrick's Aghagallon</strong>,
+            followed by our wedding reception at <strong>Dunadry Hotel and Gardens</strong>.
+          </p>
+          <p>Further details on timings and transport will be shared closer to the day.</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <img
+          class="card__art"
+          src={cards[1].image}
+          alt={cards[1].alt}
+          width={cards[1].width}
+          height={cards[1].height}
+          loading="lazy"
+        />
+        <h3 class="heading card__title">{cards[1].title}</h3>
+        <p class="card__date">{cards[1].date}</p>
+        <div class="prose card__body">
+          <p>
+            We're planning to continue the festivities at <strong>Bishops, The Moy</strong>. More
+            information will follow, but we'd love you to join us if you can.
+          </p>
+          <p>
+            Buses will be arranged from the venue and Tyrone for anyone wishing to join the
+            celebrations.
+          </p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .celebrations {
+    background: var(--c-blue-band);
+    padding-block: var(--section-y);
+  }
+
+  .celebrations__heading {
+    font-size: var(--fs-band);
+    color: var(--c-blue);
+    text-align: center;
+    margin-bottom: clamp(2rem, 5.4vw, 4.5rem);
+  }
+
+  .celebrations__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(1.5rem, 2.5vw, 2rem);
+  }
+
+  .card {
+    background: var(--c-white);
+    padding: clamp(2.5rem, 6.2vw, 5.75rem) clamp(1.5rem, 3vw, 3rem);
+    text-align: center;
+    /* Cards sit as equal-height columns with the text block top-aligned. */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card__art {
+    width: clamp(6rem, 9.5vw, 9rem);
+    height: auto;
+    margin-bottom: var(--s-3);
+  }
+
+  .card__title {
+    /* Same size and tracking as the other section headings — measuring the
+       design shows the card titles match them, not a smaller step. */
+    font-size: var(--fs-section);
+  }
+
+  .card__date {
+    margin-top: var(--s-2);
+    font-size: var(--fs-small);
+    letter-spacing: var(--ls-eyebrow);
+    text-indent: var(--ls-eyebrow);
+    text-transform: uppercase;
+    color: var(--c-blue-light);
+  }
+
+  .card__body {
+    margin-top: var(--s-3);
+    max-width: 30rem;
+  }
+
+  /* Floral accents: top-right and bottom-left of the band, as in the design.
+     Each is anchored to the edge its stems grow from. */
+  .flower--top-right {
+    top: 0;
+    right: clamp(-1rem, 1vw, 1rem);
+    width: clamp(4.5rem, 8vw, 7rem);
+  }
+
+  .flower--bottom-left {
+    bottom: 0;
+    left: clamp(-1.5rem, -1vw, 0rem);
+    width: clamp(4rem, 7vw, 6rem);
+  }
+
+  @media (max-width: 860px) {
+    .celebrations__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .flower--top-right {
+      width: 22vw;
+    }
+
+    /* The bottom-left sprig crowds the stacked cards on small screens. */
+    .flower--bottom-left {
+      display: none;
+    }
+  }
+</style>
