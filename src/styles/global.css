@@ -17,24 +17,15 @@
   src: url('/fonts/cormorant-garamond-var.woff2') format('woff2');
 }
 
-/* Heading candidates. Aborteo (the font in the Figma file) is a commercial
-   licence we do not have for web use, so these are the stand-ins.
-   Switch between them with --font-heading below. */
+/* Aboreto is the display face from the Figma file. It is a Google Font under
+   the SIL Open Font License, so it can be self-hosted here. One weight only. */
 
 @font-face {
-  font-family: 'Italiana';
+  font-family: 'Aboreto';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('/fonts/italiana-400.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Marcellus';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('/fonts/marcellus-400.woff2') format('woff2');
+  src: url('/fonts/aboreto-400.woff2') format('woff2');
 }
 
 /* --- Tokens -------------------------------------------------------------- */
@@ -53,26 +44,32 @@
   --c-green-band: #f1f5e0; /* footer background */
 
   /* Type --------------------------------------------------------------- */
-  /* ONE variable controls every heading — swapping in Aborteo later
-     (or picking a different stand-in) is a one-line change here. */
-  --font-heading: 'Italiana', 'Cormorant Garamond', Georgia, serif;
+  /* ONE variable controls every heading, so the display face can be
+     swapped in a single line here. */
+  --font-heading: 'Aboreto', 'Cormorant Garamond', Georgia, serif;
   --font-body: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
 
   /* Fluid sizes: clamp(min, preferred, max) lets type scale with the
      viewport between a mobile floor and a desktop ceiling.
      The vw values are derived from measuring the Figma export: each one
      reproduces the design's text width at a 1440px viewport. */
-  --fs-display: clamp(2.25rem, 3.67vw, 4.5rem); /* AOIFE & MARK */
-  --fs-band: clamp(1.5rem, 3.24vw, 4rem); /* THE CELEBRATIONS */
-  --fs-section: clamp(1.25rem, 1.65vw, 2rem); /* WHERE TO STAY, footer */
-  --fs-intro: clamp(1.25rem, 1.84vw, 2.125rem); /* intro heading */
-  --fs-date: clamp(1.125rem, 1.5vw, 1.5rem); /* 17.04.2028 */
+  --fs-display: clamp(2.25rem, 3.503vw, 4.25rem); /* AOIFE & MARK */
+  --fs-band: clamp(1.5rem, 3.023vw, 3.75rem); /* THE CELEBRATIONS */
+  --fs-section: clamp(1.25rem, 1.424vw, 1.75rem); /* WHERE TO STAY, cards, footer */
+  --fs-intro: clamp(1.125rem, 1.707vw, 2rem); /* intro heading */
+  --fs-date: clamp(1.125rem, 1.71vw, 1.875rem); /* 17.04.2028 */
   --fs-count: clamp(1.5rem, 2.18vw, 2.5rem); /* countdown numbers */
   --fs-body: clamp(1rem, 1.05vw, 1.125rem);
   --fs-small: clamp(0.75rem, 0.9vw, 0.875rem); /* eyebrow, labels */
 
-  --ls-display: 0.1em;
-  --ls-section: 0.16em;
+  /* Tracking is per heading level in the design, not one global value.
+     These were solved from the Figma export: for each group of headings
+     that share a size, the tracking and size that reproduce every one of
+     their measured widths (within 0.2%). */
+  --ls-display: 0.112em;
+  --ls-band: 0.138em;
+  --ls-section: 0.185em;
+  --ls-intro: 0.0525em;
   --ls-eyebrow: 0.22em;
 
   /* Spacing: everything is a multiple of 8px ---------------------------- */

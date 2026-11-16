@@ -43,24 +43,39 @@ That way the numbers are never blank or `NaN` before the JavaScript runs, and
 the section still shows sensible (if slightly stale) values if a visitor has
 JavaScript turned off.
 
-## Two things still to confirm
+## Fonts
 
-### 1. The heading font
+Both fonts are self-hosted in `public/fonts/`, so the site does not call out
+to Google's servers at runtime.
 
-The Figma file uses **Aborteo**, which is a commercial font with no confirmed
-webfont licence, so it is **not** shipped here. The headings currently use
-**Italiana** (a free Google font) as a stand-in.
+- **Aboreto** — the display face from the Figma file, used for all headings
+  and the hero date. It is a Google Font under the SIL Open Font License, so
+  it can be self-hosted freely. One weight (400).
+- **Cormorant Garamond** — body text. A *variable* font, so one 37KB file
+  covers every weight from 300 to 700.
 
-The whole heading stack is one variable, so swapping it is a one-line change
-in `src/styles/global.css`:
+The heading stack is a single variable in `src/styles/global.css`, so it can
+be swapped in one line:
 
 ```css
---font-heading: 'Italiana', 'Cormorant Garamond', Georgia, serif;
+--font-heading: 'Aboreto', 'Cormorant Garamond', Georgia, serif;
 ```
 
-`Marcellus` is also already downloaded in `public/fonts/` as an alternative.
+### How the type sizes were set
 
-### 2. Contact details
+Heading sizes and letter-spacing are not guesses. For each group of headings
+that share a size in the design, the inked width of every string was measured
+from the Figma export, and the one size + tracking that reproduces all of them
+was solved for. Each group fits within 0.2%, and every heading on the page
+renders within 0.5% of the design.
+
+That is why tracking is a separate token per heading level
+(`--ls-display`, `--ls-band`, `--ls-section`, `--ls-intro`) — the design
+genuinely uses different tracking at each level.
+
+## Still to confirm
+
+### Contact details
 
 The Email and WhatsApp buttons in the footer point at **placeholders** in
 `src/config.ts`. They need the real address and number before the site goes

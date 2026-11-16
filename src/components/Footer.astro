@@ -99,6 +99,13 @@ const whatsapp = `https://wa.me/${CONTACT.whatsapp}`;
       padding-bottom: 11rem;
     }
 
+    /* Break the heading after "CAN", as the mobile design does, rather
+       than letting "US!" fall onto a line of its own. */
+    .footer__heading {
+      max-width: 17rem;
+      margin-inline: auto;
+    }
+
     .footer__flowers {
       width: 32vw;
     }
