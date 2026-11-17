@@ -3,7 +3,7 @@
  *
  * NOTE: this repository has to be PUBLIC for GitHub Pages to work on a free
  * plan, so anything in here is readable by anyone. Keep personal contact
- * details out until Aoife & Mark are happy for them to be public.
+ * details out unless Aoife & Mark are happy for them to be public.
  */
 
 /** The wedding day. Months are 0-indexed in JS, so 3 = April. */
@@ -13,13 +13,12 @@ export const WEDDING_DATE = new Date(2028, 3, 17, 12, 0, 0);
 export const WEDDING_DATE_ISO = '2028-04-17T12:00:00';
 
 /**
- * TODO: confirm with Aoife & Mark before going live.
- * These are placeholders — replace with the real address and number.
+ * Confirmed by Lucy, 17 November 2026, for publication on this public site.
  */
 export const CONTACT = {
-  email: 'hello@example.com',
-  /** International format, digits only, no + or spaces. e.g. 447700900123 */
-  whatsapp: '440000000000',
+  email: 'amurray99@icloud.com',
+  /** International format, digits only, no + or spaces. +44 7748 018912 */
+  whatsapp: '447748018912',
 };
 
 /** Where the "Book your stay" button points. */

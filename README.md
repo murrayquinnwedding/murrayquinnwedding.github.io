@@ -73,24 +73,23 @@ That is why tracking is a separate token per heading level
 (`--ls-display`, `--ls-band`, `--ls-section`, `--ls-intro`) — the design
 genuinely uses different tracking at each level.
 
-## Still to confirm
+## Contact details
 
-### Contact details
-
-The Email and WhatsApp buttons in the footer point at **placeholders** in
-`src/config.ts`. They need the real address and number before the site goes
-live.
+The Email and WhatsApp buttons in the footer read from `CONTACT` in
+`src/config.ts` — one place to change both.
 
 Note that this repository has to be **public** for GitHub Pages to work on a
-free plan, so anything committed here is readable by anyone.
+free plan, so anything committed here is readable by anyone, including these
+details. They were confirmed for publication on 17 November 2026.
 
 ## Deployment
 
 Pushing to `main` triggers `.github/workflows/deploy.yml`, which builds the
 site and publishes it to GitHub Pages.
 
-For this to work, the repository needs **Settings → Pages → Source** set to
-**GitHub Actions** (not "Deploy from a branch").
+The repository's **Settings → Pages → Source** is set to **GitHub Actions**.
+It must not be "Deploy from a branch": that runs Jekyll over the raw source,
+which fails (Jekyll ignores the `_astro` directory the stylesheet lives in).
 
 The site is configured for <https://murrayquinnwedding.github.io> — a root
 user/org site, so there is no `base` path set in `astro.config.mjs`.
