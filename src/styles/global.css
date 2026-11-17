@@ -34,13 +34,13 @@
   /* Colour ------------------------------------------------------------- */
   --c-ink: #111111; /* body text */
   --c-gold: #725625; /* accent: dates, countdown numbers */
+  --c-gold-dark: #6e511d; /* "Book your stay" label */
   --c-gold-10: rgba(114, 86, 37, 0.1); /* button borders, hairlines */
   --c-white: #ffffff;
   --c-rule: #dcdcdc; /* dividers */
   --c-cream: #f4f1ec; /* countdown band, button fill */
   --c-cream-dark: #dbd2c3; /* "Book your stay" hover */
-  --c-blue: #64769c; /* Celebrations heading */
-  --c-blue-light: #798cb2; /* card dates */
+  --c-blue: #64769c; /* Celebrations heading, card dates */
   --c-blue-band: #edf3ff; /* Celebrations background */
   --c-green-band: #f1f5e0; /* footer background */
   --c-green-hover: #d6dfb6; /* Email / WhatsApp hover */
@@ -58,7 +58,7 @@
   --fs-display: clamp(2.25rem, 3.503vw, 4.25rem); /* AOIFE & MARK */
   --fs-band: clamp(1.5rem, 3.023vw, 3.75rem); /* THE CELEBRATIONS */
   --fs-section: clamp(1.25rem, 1.424vw, 1.75rem); /* WHERE TO STAY, cards, footer */
-  --fs-intro: clamp(1.125rem, 1.707vw, 2rem); /* intro heading */
+  --fs-intro: clamp(1.125rem, 1.707vw, 1.5rem); /* intro heading, 24px ceiling */
   --fs-date: clamp(1.125rem, 1.71vw, 1.875rem); /* 17.04.2028 */
   --fs-count: clamp(1.5rem, 2.18vw, 2.5rem); /* countdown numbers */
   --fs-body: clamp(1rem, 1.05vw, 1.125rem);
@@ -66,6 +66,10 @@
   /* The eyebrow and countdown labels are set in Aboreto, which runs wider
      than the body face, so they get their own size rather than --fs-small. */
   --fs-eyebrow: clamp(0.625rem, 0.85vw, 0.875rem);
+  /* Button labels track the eyebrow on desktop, but get their own token so
+     they can be lifted on small screens (see the override below) without
+     dragging the hero eyebrow and countdown labels up with them. */
+  --fs-btn: clamp(0.625rem, 0.85vw, 0.875rem);
 
   /* Tracking is per heading level in the design, not one global value.
      These were solved from the Figma export: for each group of headings
@@ -96,6 +100,14 @@
   --content-max: 1600px;
   --gutter: clamp(2rem, 6.7vw, 8rem); /* 32px mobile → 128px desktop */
   --section-y: clamp(3.5rem, 6vw, 6rem); /* vertical section rhythm */
+}
+
+/* On a phone the viewport-derived button size bottoms out at 10px, which is
+   too quiet for the main calls to action. Desktop is left untouched. */
+@media (max-width: 860px) {
+  :root {
+    --fs-btn: 0.8125rem;
+  }
 }
 
 /* --- Reset --------------------------------------------------------------- */
@@ -213,7 +225,7 @@ img {
   display: inline-block;
   text-align: center;
   font-family: var(--font-heading);
-  font-size: var(--fs-eyebrow);
+  font-size: var(--fs-btn);
   letter-spacing: var(--ls-eyebrow);
   text-indent: var(--ls-eyebrow);
   text-transform: uppercase;
@@ -229,6 +241,7 @@ img {
 /* Filled, used for "Book your stay". */
 .btn--solid {
   background: var(--c-cream);
+  color: var(--c-gold-dark);
   border: 1px solid transparent;
 }
 
